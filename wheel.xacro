@@ -1,0 +1,591 @@
+<?xml version="1.0"?>
+  <robot xmlns:xacro="http://www.ros.org/wiki/xacro"
+         xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+         xmlns:interface="http://ros.org/wiki/xacro"
+         xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor" name="ballbot">
+
+   <xacro:macro name="omni" params="x y z roll pit yaw pos">
+      <link name="body${pos}">
+      <collision>
+         <origin xyz="0 0 0" rpy="${roll} ${pit} ${yaw}"/>
+          <geometry>
+            <mesh filename="package://urdf_tutorial/Wheel2_Double_ohneRaeder.stl" scale=".0021 .0021 .0021"/>
+          </geometry>
+         </collision>
+      <visual>
+         <origin xyz="0 0 0" rpy="${roll} ${pit} ${yaw}"/>
+          <geometry>
+            <mesh filename="package://urdf_tutorial/Wheel2_Double_ohneRaeder.stl" scale=".0021 .0021 .0021"/>
+          </geometry>
+         </visual>
+       <inertial>
+         <mass value = "1"/>
+<inertia ixx="0.00236" ixy ="0" ixz="0" iyy="0.00236" iyz="0" izz="0.00945"/>
+</inertial>
+<gazebo>
+<gravity> 1 </gravity>
+<dampingFactor>10</dampingFactor>
+<mu1>1000</mu1>
+<mu2>1000</mu2>
+</gazebo>
+
+      </link>
+
+
+     <link name="roller1${pos}">
+       <collision >
+           <origin xyz="0 0 0" rpy="0 0 1.57079"/>
+          <geometry>
+            <mesh filename="package://urdf_tutorial/Wheel2_wheel_rightOrient.stl" scale=".0021 .0021 .0021"/>
+          </geometry>
+        </collision>
+        <visual >
+           <origin xyz="0 0 0" rpy="0 0 1.57079"/>
+           <geometry>
+            <mesh filename="package://urdf_tutorial/Wheel2_wheel_rightOrient.stl" scale=".0021 .0021 .0021"/>
+          </geometry>
+        </visual>
+<inertial>
+         <mass value = "0.05"/>
+<inertia ixx="0.000018" ixy ="0" ixz="0" iyy="0.00000722" iyz="0.0" izz="0.00000722"/>
+</inertial>
+<gazebo>
+<gravity> 1 </gravity>
+<dampingFactor>10</dampingFactor>
+<mu1>1000</mu1>
+<mu2>1000</mu2>
+</gazebo>
+
+      </link>
+    <joint name="1${pos}" type="continuous">
+     <parent link="body${pos}"/>
+     <child link="roller1${pos}"/>
+     <origin xyz="${0.222*(-(0)*sin(yaw)+((0.05-0.28)*sin(pit)+(0.137)*cos(pit))*cos(yaw))} ${0.222*(((0)*cos(yaw))+((0.05-0.28)*sin(pit)+(0.137)*cos(pit))*sin(yaw))} ${0.222*((0.05-0.28)*cos(pit)+0.28-(0.137)*sin(pit)-0.28)}" rpy="${roll} ${pit} ${yaw}"/>
+     <axis xyz="0 1 0"/>
+    </joint>
+
+
+
+
+
+    <link name="roller2${pos}">
+       <collision >
+           <origin xyz="0 0 0" rpy="0 -1.25664 1.57079"/>
+          <geometry>
+            <mesh filename="package://urdf_tutorial/Wheel2_wheel_rightOrient.stl" scale=".0021 .0021 .0021"/>
+          </geometry>
+        </collision>
+        <visual >
+           <origin xyz="0 0 0" rpy="0 -1.25664 1.57079"/>
+           <geometry>
+            <mesh filename="package://urdf_tutorial/Wheel2_wheel_rightOrient.stl" scale=".0021 .0021 .0021"/>
+          </geometry>
+        </visual>
+<inertial>
+         <mass value = "0.05"/>
+<inertia ixx="0.000018" ixy ="0" ixz="0" iyy="0.00000722" iyz="0.0" izz="0.00000722"/>
+</inertial>
+<gazebo>
+<gravity> 1 </gravity>
+<dampingFactor>10</dampingFactor>
+<mu1>1000</mu1>
+<mu2>1000</mu2>
+</gazebo>
+
+      </link>
+    <joint name="2${pos}" type="continuous">
+     <parent link="body${pos}"/>
+     <child link="roller2${pos}"/>
+     <origin xyz="${0.222*(-(0.21)*sin(yaw)+((0.208-0.28)*sin(pit)+(0.137)*cos(pit))*cos(yaw))} ${0.222*(((0.21)*cos(yaw))+((0.208-0.28)*sin(pit)+(0.137)*cos(pit))*sin(yaw))} ${0.222*((0.208-0.28)*cos(pit)+0.28-(0.137)*sin(pit)-0.28)}" rpy="${roll} ${pit} ${yaw}"/>
+     <axis xyz="0 0.31 0.95"/>
+    </joint>
+
+
+
+
+
+
+     <link name="roller3${pos}">
+        <collision >
+           <origin xyz="0 0 0" rpy="0 -2.5132 1.57079"/>
+          <geometry>
+            <mesh filename="package://urdf_tutorial/Wheel2_wheel_rightOrient.stl" scale=".0021 .0021 .0021"/>
+          </geometry>
+        </collision>
+        <visual >
+           <origin xyz="0 0 0" rpy="0 -2.5132 1.57079"/>
+           <geometry>
+            <mesh filename="package://urdf_tutorial/Wheel2_wheel_rightOrient.stl" scale=".0021 .0021 .0021"/>
+          </geometry>
+        </visual>
+<inertial>
+         <mass value = "0.05"/>
+<inertia ixx="0.000018" ixy ="0" ixz="0" iyy="0.00000722" iyz="0.0" izz="0.00000722"/>
+</inertial>
+<gazebo>
+<gravity> 1 </gravity>
+<dampingFactor>10</dampingFactor>
+<mu1>1000</mu1>
+<mu2>1000</mu2>
+</gazebo>
+
+      </link>
+    <joint name="3${pos}" type="continuous">
+     <parent link="body${pos}"/>
+     <child link="roller3${pos}"/>
+     <origin xyz="${0.222*(-(0.14)*sin(yaw)+((0.47-0.28)*sin(pit)+(0.137)*cos(pit))*cos(yaw))} ${0.222*(((0.14)*cos(yaw))+((0.47-0.28)*sin(pit)+(0.137)*cos(pit))*sin(yaw))} ${0.222*((0.47-0.28)*cos(pit)+0.28-(0.137)*sin(pit)-0.28)}" rpy="${roll} ${pit} ${yaw}"/>
+     <axis xyz="0 -0.81 0.59"/>
+    </joint>
+
+
+
+
+
+
+     <link name="roller4${pos}">
+           <collision >
+           <origin xyz="0 0 0" rpy="0 -3.7699 1.57079"/>
+          <geometry>
+            <mesh filename="package://urdf_tutorial/Wheel2_wheel_rightOrient.stl" scale=".0021 .0021 .0021"/>
+          </geometry>
+        </collision>
+        <visual >
+           <origin xyz="0 0 0" rpy="0 -3.7699 1.57079"/>
+           <geometry>
+            <mesh filename="package://urdf_tutorial/Wheel2_wheel_rightOrient.stl" scale=".0021 .0021 .0021"/>
+          </geometry>
+        </visual>
+<inertial>
+         <mass value = "0.05"/>
+<inertia ixx="0.000018" ixy ="0" ixz="0" iyy="0.00000722" iyz="0.0" izz="0.00000722"/>
+</inertial>
+<gazebo>
+<gravity> 1 </gravity>
+<dampingFactor>10</dampingFactor>
+<mu1>1000</mu1>
+<mu2>1000</mu2>
+</gazebo>
+
+      </link>
+    <joint name="4${pos}" type="continuous">
+     <parent link="body${pos}"/>
+     <child link="roller4${pos}"/>
+     <origin xyz="${0.222*(-(-0.14)*sin(yaw)+((0.47-0.28)*sin(pit)+(0.137)*cos(pit))*cos(yaw))} ${0.222*(((-0.14)*cos(yaw))+((0.47-0.28)*sin(pit)+(0.137)*cos(pit))*sin(yaw))} ${0.222*((0.47-0.28)*cos(pit)+0.28-(0.137)*sin(pit)-0.28)}" rpy="${roll} ${pit} ${yaw}"/>
+     <axis xyz="0 -0.81 -0.59"/>
+    </joint>
+
+
+
+
+
+     <link name="roller5${pos}">
+        <collision >
+           <origin xyz="0 0 0" rpy="0 1.25664 1.57079"/>
+          <geometry>
+            <mesh filename="package://urdf_tutorial/Wheel2_wheel_rightOrient.stl" scale=".0021 .0021 .0021"/>
+          </geometry>
+        </collision>
+        <visual >
+           <origin xyz="0 0 0" rpy="0 1.25664 1.57079"/>
+           <geometry>
+            <mesh filename="package://urdf_tutorial/Wheel2_wheel_rightOrient.stl" scale=".0021 .0021 .0021"/>
+          </geometry>
+        </visual>
+<inertial>
+         <mass value = "0.05"/>
+<inertia ixx="0.000018" ixy ="0" ixz="0" iyy="0.00000722" iyz="0.0" izz="0.00000722"/>
+</inertial>
+<gazebo>
+<gravity> 1 </gravity>
+<dampingFactor>10</dampingFactor>
+<mu1>1000</mu1>
+<mu2>1000</mu2>
+</gazebo>
+
+      </link>
+    <joint name="5${pos}" type="continuous">
+     <parent link="body${pos}"/>
+     <child link="roller5${pos}"/>
+     <origin xyz="${0.222*(-(-0.22)*sin(yaw)+((0.21-0.28)*sin(pit)+(0.137)*cos(pit))*cos(yaw))} ${0.222*(((-0.22)*cos(yaw))+((0.21-0.28)*sin(pit)+(0.137)*cos(pit))*sin(yaw))} ${0.222*((0.21-0.28)*cos(pit)+0.28-(0.137)*sin(pit)-0.28)}" rpy="${roll} ${pit} ${yaw}"/>
+     <axis xyz="0 0.31 -0.95"/>
+    </joint>
+
+
+
+
+
+
+     <link name="roller6${pos}">
+       <collision >
+           <origin xyz="0 0 0" rpy="0 -0.6283 1.57079"/>
+          <geometry>
+            <mesh filename="package://urdf_tutorial/Wheel2_wheel_rightOrient.stl" scale=".0021 .0021 .0021"/>
+          </geometry>
+        </collision>
+        <visual >
+           <origin xyz="0 0 0" rpy="0 -0.6283 1.57079"/>
+           <geometry>
+            <mesh filename="package://urdf_tutorial/Wheel2_wheel_rightOrient.stl" scale=".0021 .0021 .0021"/>
+          </geometry>
+        </visual>
+<inertial>
+         <mass value = "0.05"/>
+<inertia ixx="0.000018" ixy ="0" ixz="0" iyy="0.00000722" iyz="0.0" izz="0.00000722"/>
+</inertial>
+<gazebo>
+<gravity> 1 </gravity>
+<dampingFactor>10</dampingFactor>
+<mu1>1000</mu1>
+<mu2>1000</mu2>
+</gazebo>
+
+      </link>
+    <joint name="6${pos}" type="continuous">
+     <parent link="body${pos}"/>
+     <child link="roller6${pos}"/>
+     <origin xyz="${0.222*(-(0.14)*sin(yaw)+((0.094-0.28)*sin(pit)+(0.01)*cos(pit))*cos(yaw))} ${0.222*(((0.14)*cos(yaw))+((0.094-0.28)*sin(pit)+(0.01)*cos(pit))*sin(yaw))} ${0.222*((0.094-0.28)*cos(pit)+0.28-(0.01)*sin(pit)-0.28)}" rpy="${roll} ${pit} ${yaw}"/>
+     <axis xyz="0 0.81 0.59"/>
+    </joint>
+
+
+
+
+
+
+     <link name="roller7${pos}">
+      <collision >
+           <origin xyz="0 0 0" rpy="0 -1.8849 1.57079"/>
+          <geometry>
+            <mesh filename="package://urdf_tutorial/Wheel2_wheel_rightOrient.stl" scale=".0021 .0021 .0021"/>
+          </geometry>
+        </collision>
+        <visual >
+           <origin xyz="0 0 0" rpy="0 -1.8849 1.57079"/>
+           <geometry>
+            <mesh filename="package://urdf_tutorial/Wheel2_wheel_rightOrient.stl" scale=".0021 .0021 .0021"/>
+          </geometry>
+        </visual>
+<inertial>
+         <mass value = "0.05"/>
+<inertia ixx="0.000018" ixy ="0" ixz="0" iyy="0.00000722" iyz="0.0" izz="0.00000722"/>
+</inertial>
+<gazebo>
+<gravity> 1 </gravity>
+<dampingFactor>10</dampingFactor>
+<mu1>1000</mu1>
+<mu2>1000</mu2>
+</gazebo>
+
+      </link>
+    <joint name="7${pos}" type="continuous">
+     <parent link="body${pos}"/>
+     <child link="roller7${pos}"/>
+     <origin xyz="${0.222*(-(0.22)*sin(yaw)+((0.35-0.28)*sin(pit)+(0.01)*cos(pit))*cos(yaw))} ${0.222*(((0.22)*cos(yaw))+((0.35-0.28)*sin(pit)+(0.01)*cos(pit))*sin(yaw))} ${0.222*((0.35-0.28)*cos(pit)+0.28-(0.01)*sin(pit)-0.28)}" rpy="${roll} ${pit} ${yaw}"/>
+     <axis xyz="0 -0.31 0.95"/>
+    </joint>
+
+
+
+
+
+
+     <link name="roller8${pos}">
+      <collision >
+           <origin xyz="0 0 0" rpy="0 -3.14159 1.57079"/>
+          <geometry>
+            <mesh filename="package://urdf_tutorial/Wheel2_wheel_rightOrient.stl" scale=".0021 .0021 .0021"/>
+          </geometry>
+        </collision>
+        <visual >
+           <origin xyz="0 0 0" rpy="0 -3.14159 1.57079"/>
+           <geometry>
+            <mesh filename="package://urdf_tutorial/Wheel2_wheel_rightOrient.stl" scale=".0021 .0021 .0021"/>
+          </geometry>
+        </visual>
+<inertial>
+         <mass value = "0.05"/>
+<inertia ixx="0.000018" ixy ="0" ixz="0" iyy="0.00000722" iyz="0.0" izz="0.00000722"/>
+</inertial>
+<gazebo>
+<gravity> 1 </gravity>
+<dampingFactor>10</dampingFactor>
+<mu1>1000</mu1>
+<mu2>1000</mu2>
+</gazebo>
+
+      </link>
+    <joint name="8${pos}" type="continuous">
+     <parent link="body${pos}"/>
+     <child link="roller8${pos}"/>
+     <origin xyz="${0.222*(-(0)*sin(yaw)+((0.51-0.28)*sin(pit)+(0.01)*cos(pit))*cos(yaw))} ${0.222*(((0)*cos(yaw))+((0.51-0.28)*sin(pit)+(0.01)*cos(pit))*sin(yaw))} ${0.222*((0.51-0.28)*cos(pit)+0.28-(0.01)*sin(pit)-0.28)}" rpy="${roll} ${pit} ${yaw}"/>
+     <axis xyz="0 -1 0"/>
+    </joint>
+
+
+
+
+
+
+     <link name="roller9${pos}">
+      <collision >
+           <origin xyz="0 0 0" rpy="0 -4.3982 1.57079"/>
+          <geometry>
+            <mesh filename="package://urdf_tutorial/Wheel2_wheel_rightOrient.stl" scale=".0021 .0021 .0021"/>
+          </geometry>
+        </collision>
+        <visual >
+           <origin xyz="0 0 0" rpy="0 -4.3982 1.57079"/>
+           <geometry>
+            <mesh filename="package://urdf_tutorial/Wheel2_wheel_rightOrient.stl" scale=".0021 .0021 .0021"/>
+          </geometry>
+        </visual>
+<inertial>
+         <mass value = "0.05"/>
+<inertia ixx="0.000018" ixy ="0" ixz="0" iyy="0.00000722" iyz="0.0" izz="0.00000722"/>
+</inertial>
+<gazebo>
+<gravity> 1 </gravity>
+<dampingFactor>10</dampingFactor>
+<mu1>1000</mu1>
+<mu2>1000</mu2>
+</gazebo>
+
+      </link>
+    <joint name="9${pos}" type="continuous">
+     <parent link="body${pos}"/>
+     <child link="roller9${pos}"/>
+     <origin xyz="${0.222*(-(-0.22)*sin(yaw)+((0.35-0.28)*sin(pit)+(0.01)*cos(pit))*cos(yaw))} ${0.222*(((-0.22)*cos(yaw))+((0.35-0.28)*sin(pit)+(0.01)*cos(pit))*sin(yaw))} ${0.222*((0.35-0.28)*cos(pit)+0.28-(0.01)*sin(pit)-0.28)}" rpy="${roll} ${pit} ${yaw}"/>
+     <axis xyz="0 -0.31 -0.95"/>
+    </joint>
+
+
+
+
+
+     <link name="roller10${pos}">
+       <collision >
+           <origin xyz="0 0 0" rpy="0 -5.6548 1.57079"/>
+          <geometry>
+            <mesh filename="package://urdf_tutorial/Wheel2_wheel_rightOrient.stl" scale=".0021 .0021 .0021"/>
+          </geometry>
+        </collision>
+        <visual >
+           <origin xyz="0 0 0" rpy="0 -5.6548 1.57079"/>
+           <geometry>
+            <mesh filename="package://urdf_tutorial/Wheel2_wheel_rightOrient.stl" scale=".0021 .0021 .0021"/>
+          </geometry>
+        </visual>
+<inertial>
+         <mass value = "0.05"/>
+<inertia ixx="0.000018" ixy ="0" ixz="0" iyy="0.00000722" iyz="0.0" izz="0.00000722"/>
+</inertial>
+<gazebo>
+<gravity> 1 </gravity>
+<dampingFactor>10</dampingFactor>
+<mu1>1000</mu1>
+<mu2>1000</mu2>
+</gazebo>
+
+      </link>
+    <joint name="10${pos}" type="continuous">
+     <parent link="body${pos}"/>
+     <child link="roller10${pos}"/>
+     <origin xyz="${0.222*(-(-0.14)*sin(yaw)+((0.094-0.28)*sin(pit)+(0.01)*cos(pit))*cos(yaw))} ${0.222*(((-0.14)*cos(yaw))+((0.094-0.28)*sin(pit)+(0.01)*cos(pit))*sin(yaw))} ${0.222*((0.094-0.28)*cos(pit)+0.28-(0.01)*sin(pit)-0.28)}" rpy="${roll} ${pit} ${yaw}"/>
+     <axis xyz="0 0.81 -0.59"/>
+    </joint>
+ 
+</xacro:macro>
+
+<link name="b1">
+      <collision>
+         <origin xyz="0 0 0.395" rpy="0 0 2.61799"/>
+          <geometry>
+            <mesh filename="package://urdf_tutorial/butt.stl" scale=".00175 .00175 .00175"/>
+          </geometry>
+         </collision>
+      <visual>
+        <origin xyz="0 0 0.395" rpy="0 0 2.61799"/>
+          <geometry>
+            <mesh filename="package://urdf_tutorial/butt.stl" scale=".00175 .00175 .00175"/>
+          </geometry>
+         </visual>
+      </link>
+
+<xacro:macro name="the_main_body">
+  <link name="the_body">
+      <collision>
+          <geometry>
+            <cylinder radius="0.1" length="0.4" />
+          </geometry>
+         <origin xyz="0 0 0.2185" rpy="0 0 0"/>
+         </collision>
+      <visual>
+        <origin xyz="0 0 0.2185" rpy="0 0 0"/>
+          <geometry>
+            <cylinder radius="0.1" length="0.4" />
+          </geometry>
+         </visual>
+       <inertial>
+     <origin xyz="0 0 0.21"/>
+         <mass value = "9.2"/>
+<inertia ixx="0.092" ixy ="0" ixz="0" iyy="0.092" iyz="0.0" izz="4.76"/>
+</inertial>
+<gazebo>
+<mu1>1000</mu1>
+<mu2>1000</mu2>
+</gazebo>
+      </link>
+</xacro:macro>
+
+<!--<link name ="box">
+ <visual name='caster_visual'>
+      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <geometry>
+        <cylinder  length="0.40" radius="1.0"/>
+      </geometry>
+    </visual>
+<collision name='caster_visual'>
+      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <geometry>
+        <cylinder  length="0.40" radius="1.0"/>
+      </geometry>
+    </collision>
+<inertial>
+        <origin xyz="0 0 0.36"/>
+         <mass value = "5"/>
+<inertia ixx="1.0" ixy ="1.0" ixz="1.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+</inertial>
+</link>
+
+<joint name="imu_joint" type="fixed">
+    <axis xyz="1 0 0"/>  
+    <origin xyz="0 0 0.1"/>
+    <parent link="b1"/>
+    <child link="box"/>
+</joint>
+-->
+ <xacro:omni x="0.06446" y="0.11289" z="0.26" roll="0" pit="-0.7853" yaw="-2.0944" pos="1">  
+ </xacro:omni>
+<xacro:omni x="0.06446" y="-0.11289" z="0.26" roll="0" pit="-0.7853" yaw="2.0944" pos="2">  
+ </xacro:omni>
+<xacro:omni x="-0.13" y="0" z="0.01" roll="0" pit="-0.7853" yaw="0" pos="3">  
+ </xacro:omni>
+<xacro:the_main_body>  
+ </xacro:the_main_body>
+<joint name="body_joint" type="fixed">
+<parent link="b1" />
+<child link="the_body" />
+<origin xyz="0 0 0.395" rpy="0.0 0.0 0" />
+<axis xyz ="0 0 0"/>
+</joint>
+
+<joint name="imu_joint1" type="continuous">
+<parent link="b1" />
+<child link="body1" />
+<origin xyz="0.06446 0.11289 0.26" rpy="0.0 0.0 0" />
+<dynamics damping="0.005" friction="0.035"/>
+<axis xyz ="-0.3535 -0.6122 0.707"/>
+</joint>
+
+
+<transmission name="tran1">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="imu_joint1">
+      <hardwareInterface>VelocityJointInterface</hardwareInterface>
+  </joint>
+ <actuator name="motor1">
+     <hardwareInterface>VelocityJointInterface</hardwareInterface> 
+     <mechanicalReduction>1</mechanicalReduction>
+ </actuator>
+</transmission>
+
+
+<joint name="imu_joint2" type="continuous">
+<parent link="b1" />
+<child link="body2" />
+<origin xyz="0.06446 -0.11289 0.26" rpy="0.0 0.0 0" />
+<dynamics damping="0.005" friction="0.035"/>
+<axis xyz ="-0.3535 0.6122 0.707"/>
+</joint>
+
+<transmission name="tran2">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="imu_joint2">
+      <hardwareInterface>VelocityJointInterface</hardwareInterface>
+  </joint>
+ <actuator name="motor2">
+     <hardwareInterface>VelocityJointInterface</hardwareInterface> 
+     <mechanicalReduction>1</mechanicalReduction>
+ </actuator>
+</transmission>
+
+
+<joint name="imu_joint3" type="continuous">
+<parent link="b1" />
+<child link="body3" />
+<origin xyz="-0.13 0 0.26" rpy="0.0 0.0 0" />
+<dynamics damping="0.005" friction="0.035"/>
+<axis xyz ="0.707 0 0.707"/>
+</joint>
+
+<transmission name="tran3">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="imu_joint3">
+      <hardwareInterface>VelocityJointInterface</hardwareInterface>
+  </joint>
+ <actuator name="motor3">
+     <hardwareInterface>VelocityJointInterface</hardwareInterface> 
+     <mechanicalReduction>1</mechanicalReduction>
+ </actuator>
+</transmission>
+
+<gazebo>
+   <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+   </plugin>
+</gazebo>
+
+
+<link name="imu_link">
+  <inertial>
+    <mass value="0.01"/>
+    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.0001"/>
+  </inertial>
+  <visual>
+    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    <geometry>
+      <box size="0.1 0.1 0.1"/>
+    </geometry>
+  </visual>
+  <collision>
+    <origin rpy="0 0 0.5" xyz="0 0 0.5"/>
+    <geometry>
+      <box size=".01 .01 .01"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="imu_joint" type="fixed">
+    <axis xyz="1 0 0"/>
+    <origin xyz="0 0 0.5"/>
+    <parent link="b1"/>
+    <child link="imu_link"/>
+</joint>
+
+
+
+<gazebo>
+  <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
+    <alwaysOn>true</alwaysOn>
+    <updateRate>50.0</updateRate> 
+    <bodyName>imu_link</bodyName>
+    <topicName>imu_data</topicName>
+    <gaussianNoise>2.89e-08</gaussianNoise>
+    <xyzOffsets>0 0 0</xyzOffsets>
+    <rpyOffsets>0 0 0</rpyOffsets>
+    </plugin>
+
+</gazebo>
+ 
+</robot> 
+
