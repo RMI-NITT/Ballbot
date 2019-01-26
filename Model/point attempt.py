@@ -60,45 +60,35 @@ def callback(data):
 	roll, pitch, yaw = tf.transformations.euler_from_quaternion(l)
 	t = time.time()
 
-
 	eroll = set_r-roll
 	epitch = set_p-pitch
 	eyaw = set_y-yaw
-	"""
-	if abs(eroll)<0.02:
-		sumr = 0
-	if abs(epitch)<0.02:
-		sump = 0
-	if abs(eyaw)<0.02:
-		sumy = 0
-	"""
-	kp=65
+	
+
+
+	kp=95
 	kd=85
 	ki=8
 	wx = kp*eroll + kd*(eroll-erp) + ki*((sumr))
 	wy = kp*epitch + kd*(epitch-epp) + ki*((sump))
 	wz = kp*eyaw + kd*(eyaw-eyp) + ki*((sumy))
+
 	print("Errors Roll",sumr,eroll,(eroll-erp))
 	print("Errors Pitch",sump,epitch,(epitch-epp))
 	print("Errors Yaw",sumy,eyaw,(eyaw-eyp))
-	erp = eroll
-	epp = epitch
-	eyp = eyaw
-	sumr+=eroll
-	sump+=epitch
-	sumy+=eyaw
-
+	
 
 	w1= (0.333)*(wz + (1.414*((wx*cos(yaw))-(wy*sin(yaw)))))
 	w2= (0.333)*(wz+ ((1/1.414)*((sin(yaw)*((-1.732*wx)+wy))-(cos(yaw)*(wx+(1.732*wy))))))
 	w3= (0.333)*(wz+ ((1/1.414)*((sin(yaw)*((1.732*wx)+wy))+(cos(yaw)*(-wx+(1.732*wy))))))
-	pos1+=w1
-	pos2+=w2
-	pos3+=w3
 
-	w_x = (wx+(eroll-erp)/(t-t0))*(0.0659/0.125) + (eroll-erp)
-	w_y = (wy+(epitch-epp)/(t-t0))*(0.0659/0.125) + (epitch-epp)
-	w_z = (wz+(eyaw-eyp)/(t-t0))*(0.0659/0.125) + (eyaw-eyp)
+	#pos1+=w1
+	#pos2+=w2
+	#pos3+=w3
+
+	w_x = (wx+(eroll-erp)/(t-t0))*(0.0659/0.125) + (eroll-erp)/(t-t0)
+	w_y = (wy+(epitch-epp)/(t-t0))*(0.0659/0.125) + (epitch-epp)/(t-t0)
+	w_z = (wz+(eyaw-eyp)/(t-t0))*(0.0659/0.125) + (eyaw-eyp)/(t-t0)
 
 	pos_x+= w_x*(t-t0)*0.125
 	pos_y+= w_y*(t-t0)*0.125
@@ -106,11 +96,23 @@ def callback(data):
 	#print("POSN",pos_x,pos_y)
 	d = sqrt(pos_x**2 + pos_y**2)
 	ang = atan2(pos_y,pos_x)
-	set_r = sin(ang)*(5/180)*3.1417
-	set_p = cos(ang)*(5/180)*3.1417
+	set_r = abs(sin(ang))*(5/180)*3.1417
+	set_p = abs(cos(ang))*(5/180)*3.1417
+
+	if roll<0:
+        	set_r = -set_r
+	if pitch<0:
+		set_p = -set_p	
 
 	#print(w_x,w_y,w_z,"Ball")
 	rospy.loginfo(rospy.get_caller_id() + "I heard yo ass %s, %s, %s", wx, wy, wz)
+
+        erp = eroll
+	epp = epitch
+	eyp = eyaw
+	sumr+=eroll
+	sump+=epitch
+	sumy+=eyaw
 
 	pub1.publish(w2)
 	pub2.publish(w3)
