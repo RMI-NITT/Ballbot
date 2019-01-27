@@ -1,0 +1,18 @@
+Read ETH Paper
+Determined torque control motor too costly
+Found ballbot done with stepper - REM-RC Youtube + blog
+Bought Stepper NEMA-17 - provided insufficient starting torque - stepper has three torques stall, starting and running
+Bought encoded DC motor 35 kg-cm 100 rpm 
+Done laser cutting and components buying
+Motor velocity control
+
+Started simulation
+Stl files from Cescmak
+Fitted all components together and completed urdf
+ROS Control 101 - joint controllers
+Did publisher subscriber
+IMU sensor integration gazebo
+Updated balancing in gazebo - randomly moves to one direction and balances to 1+ mins
+Segway fun!!
+Cascaded PID - yet to complete
+Point balancing within an area - only 40s
