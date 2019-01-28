@@ -36,14 +36,25 @@ pos_y = 0
 pos_z = 0
 v_x = 0
 v_y = 0
+vel_x = 0
+vel_y = 0
+vel_z = 0
 
 def get_pos(info):
 	global pos_x
 	global pos_y
 	global pos_z
+
+	global vel_x
+	global vel_y
+	global vel_z
 	pos_x= info.pose[1].position.x
 	pos_y= info.pose[1].position.y
 	pos_z= info.pose[1].position.z
+
+	vel_x= info.twist[1].linear.x
+	vel_y= info.twist[1].linear.y
+	vel_z= info.twist[1].linear.z
 
 
 def callback(data):
@@ -53,6 +64,9 @@ def callback(data):
 	global pos_x
 	global pos_y
 	global pos_z
+	global vel_x
+	global vel_y
+	global vel_z
 	global v_x
 	global v_y
 	global set_r
@@ -81,14 +95,15 @@ def callback(data):
 	roll, pitch, yaw = tf.transformations.euler_from_quaternion(l)
 	t = time.time()
 
+	set_y = yaw
 	eroll = set_r-roll
 	epitch = set_p-pitch
 	eyaw = set_y-yaw
 
 
-	kp=95
-	kd=80
-	ki=8
+	kp=115
+	kd=145
+	ki=5
 	wx = kp*eroll + kd*(eroll-erp) + ki*((sumr))
 	wy = kp*epitch + kd*(epitch-epp) + ki*((sump))
 	wz = kp*eyaw + kd*(eyaw-eyp) + ki*((sumy))
@@ -102,19 +117,8 @@ def callback(data):
 	w2= (0.333)*(wz+ ((1/1.414)*((sin(yaw)*((-1.732*wx)+wy))-(cos(yaw)*(wx+(1.732*wy))))))
 	w3= (0.333)*(wz+ ((1/1.414)*((sin(yaw)*((1.732*wx)+wy))+(cos(yaw)*(-wx+(1.732*wy))))))
 
-	#pos1+=w1
-	#pos2+=w2
-	#pos3+=w3
 
-	#w_x = (wx+(eroll-erp)/(t-t0))*(0.0659/0.125) + (eroll-erp)/(t-t0)
-	#w_y = (wy+(epitch-epp)/(t-t0))*(0.0659/0.125) + (epitch-epp)/(t-t0)
-	#w_z = (wz+(eyaw-eyp)/(t-t0))*(0.0659/0.125) + (eyaw-eyp)/(t-t0)
 
-	#v_x += a_x*(t-t0)
-	#v_y += a_y*(t-t0)
-
-	#pos_x+= v_x*(t-t0)
-	#pos_y+= v_y*(t-t0)
 
 	#print("POSN",pos_x,pos_y)
 	d = sqrt(pos_x**2 + pos_y**2)
@@ -122,12 +126,28 @@ def callback(data):
 	set_r = abs(cos(ang))*(1.0*d/180)*3.1417
 	set_p = abs(sin(ang))*(1.0*d/180)*3.1417
 	print("POSN",pos_x,pos_y)
-	print("SETS",set_r,set_p)
+
+	if abs(roll-set_r)<0.034:
+		sum_r = 0
+	if abs(pitch-set_p)<0.034:
+		sum_p = 0
 
 	if pos_x>0:
 		set_p = -set_p
 	if pos_y<0:
 		set_r = -set_r
+
+	if vel_x>0.2:
+		set_p = -0.034
+	if vel_x<-0.2:
+		set_p = 0.034
+	if vel_y>0.2:
+		set_r = 0.034
+	if vel_y<-0.2:
+		set_r = -0.034
+	print("VELS",vel_x,vel_y)
+	print("SETS",set_r,set_p)
+
 
 	#print(w_x,w_y,w_z,"Ball")
 	rospy.loginfo(rospy.get_caller_id() + "I heard yo ass %s, %s, %s", wx, wy, wz)
