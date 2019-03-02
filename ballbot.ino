@@ -1,14 +1,14 @@
 #define ENCODER_A1 2 
 #define ENCODER_B1 3
-#define ENCODER_A2 21 
-#define ENCODER_B2 20
-#define ENCODER_A3 19 
+#define ENCODER_A2 48 
+#define ENCODER_B2 19
+#define ENCODER_A3 49 
 #define ENCODER_B3 18
 #define MOTOR_A1 10
 #define DIRECTION1 9
 #define MOTOR_A2 12
 #define DIRECTION2 11
-#define MOTOR_A3 14
+#define MOTOR_A3 7
 #define DIRECTION3 13
 //A1 - HIGH A2 - LOW ---> count  ++
 //A1 - LOW A2 - HIGH ---> count  --
@@ -17,7 +17,7 @@
 volatile long Count1 = 0,Count2 = 0,Count3 = 0;
 float Kpm1=7,kim1=0.5,kdm1=0;
 float Kpm2=8,kim2=0.1,kdm2=0;
-float Kpm3=50,kim3=0.1,kdm3=0;
+float Kpm3=4,kim3=0.1,kdm3=0;
 int reqpwm1,reqpwm2,reqpwm3,prevpwm1=0;
 float presentvel1=0,targetvel1,error1,sumerror1=0,preverror1=0,presentvel2=0,targetvel2,error2,sumerror2=0,preverror2=0,presentvel3=0,targetvel3,error3,sumerror3=0,preverror3=0;
 volatile long timer1=0,timeelapsed,timer2,timer3,timer4=0,timer5,timer6,timer7,timer8=0,timer9,timer10,timer11,timer12=0;
@@ -39,7 +39,7 @@ void setup() {
   pinMode(DIRECTION3, OUTPUT);
   
   attachInterrupt(1, EncoderEvent1, FALLING);
-  attachInterrupt(3, EncoderEvent2, FALLING);
+  attachInterrupt(4, EncoderEvent2, FALLING);
   attachInterrupt(5, EncoderEvent3, FALLING);
   
   Serial.begin(9600);
@@ -59,7 +59,9 @@ void loop() {
   targetvel3= (0.333)*(vz + (1.414*((vx*cos(yaw))-(vy*sin(yaw)))));
   targetvel2= (0.333)*(vz+ ((1/1.414)*((sin(yaw)*((-1.732*vx)+vy))-(cos(yaw)*(vx+(1.732*vy))))));
   targetvel1= (0.333)*(vz+ ((1/1.414)*((sin(yaw)*((1.732*vx)+vy))+(cos(yaw)*(-vx+(1.732*vy))))));
-
+  //targetvel3=20;
+  //targetvel2 =20;
+  //targetvel1= 20;
   //Serial.print(targetvel1);
   //Serial.print(targetvel2);
   //Serial.println(targetvel3);
@@ -134,7 +136,7 @@ void loop() {
   presentvel3 = (1/float(timer12))*60000000*10/14760;
   sumerror3+=error3;
   preverror3=error3;
-  //Serial.println(presentvel3);
+  //Serial.println(presentvel2);
 
 }
 void EncoderEvent1() {
