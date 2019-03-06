@@ -62,6 +62,7 @@ volatile long timer1=0,timeelapsed,timer2,timer3,timer4=0,timer5,timer6,timer7,t
 volatile long t1=0,t2=0;
 int flag = 0;
 float bias=0;
+float conv;
 
 void setup() {
   pinMode(ENCODER_A1, INPUT);
@@ -150,15 +151,14 @@ void setup() {
 
     // configure LED for output
     pinMode(LED_PIN, OUTPUT);
-    t1=millis();
-    
+    t1=micros();
 }
 
 float vx=0;
 float vy=0;
 float vz=0;
 
-float yaw=0;
+float yaw=0,yaw1=0;
 float pitch=0;
 float roll=0;
 
@@ -196,7 +196,7 @@ void loop() {
             mpu.dmpGetQuaternion(&q, fifoBuffer);
             mpu.dmpGetGravity(&gravity, &q);
             mpu.dmpGetYawPitchRoll(ypr, &q, &gravity);
-            Serial.print("yrp\t");
+            //Serial.print("yrp\t");
             /*
             Serial.print(ypr[0] * 180/M_PI);
             Serial.print("\t");
@@ -220,37 +220,43 @@ void loop() {
         digitalWrite(LED_PIN, blinkState);
     }
 
-  t2 = millis();
-  if ((t2-t1)>17000 && flag==0)
+  t2 = micros();
+  if ((t2-t1)>60000000 && flag==0)
   {
     bias = yprnew[0];
-    flag+=1;
+    flag=1;
     Serial.println("BIAS SET" + String(bias));
     t1=0;
   }
 
-  else if (flag!=1 || (t2-t1)<17000)
+  else if (flag!=1 || (t2-t1)<60000000)
   {
     bias = yprnew[0];
   }
-   Serial.print(yprnew[0]-bias);
-    Serial.print("\t");
-    Serial.print(yprnew[1]);
-    Serial.print("\t");
-    Serial.println(yprnew[2]);
-
-  yaw = yprnew[0]-bias;
-  //Serial.println(yaw);
-  pitch = yprnew[2];
-  roll = yprnew[1];
+   //Serial.print(yprnew[0]-bias);
+    //Serial.print("\t");
+    //Serial.print(yprnew[1]);
+    //Serial.print("\t");
+    //Serial.println(yprnew[2]);
+  //if((yprnew[0]-bias)>0)
+    yaw1 = (yprnew[0]-bias);
+    yaw = (yprnew[0]-bias)*M_PI/180;
+  //else
+    //yaw = (360 + (yprnew[0]-bias))*M_PI/180;
+  Serial.println(yaw);
+  pitch = (yprnew[2])*M_PI/180;
+  roll = (yprnew[1])*M_PI/180;
+  if (flag==1)
+  {
+  //Serial.println(targetvel2);
   targetvel3= (0.333)*(vz + (1.414*((vx*cos(yaw))-(vy*sin(yaw)))));
   targetvel2= (0.333)*(vz+ ((1/1.414)*((sin(yaw)*((-1.732*vx)+vy))-(cos(yaw)*(vx+(1.732*vy))))));
   targetvel1= (0.333)*(vz+ ((1/1.414)*((sin(yaw)*((1.732*vx)+vy))+(cos(yaw)*(-vx+(1.732*vy))))));
-
+  }
   
   //targetvel3=20;
   //targetvel2 =20;
-  //targetvel1= 20;
+  //targetvel1= 20;s
   //Serial.print(targetvel1);
   //Serial.print(targetvel2);
   //Serial.println(targetvel3);
@@ -325,7 +331,15 @@ void loop() {
   presentvel3 = (1/float(timer12))*60000000*10/14760;
   sumerror3+=error3;
   preverror3=error3;
-  //Serial.println(presentvel2);
+
+  if(timer4==0)
+    presentvel1=0;
+  if(timer8==0)
+    presentvel2=0;
+  if(timer12==0)
+    presentvel3=0;  
+  //Serial.println(targetvel3);
+  //Serial.println(presentvel3);
 
 }
 void EncoderEvent1() {
