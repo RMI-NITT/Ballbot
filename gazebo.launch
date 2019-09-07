@@ -19,11 +19,11 @@ world	to	be	launched	-->
 		</include>
 		<!--	Load	the	URDF	into	the	ROS	Parameter	Server	-->
 		
-		<param	name="robot_description"	command="$(find	xacro)/xacro.py $(find urdf_tutorial)/wheel.xacro"/>
-                <rosparam file="$(find urdf_tutorial)/control.yaml" command="load"/>
+		<param	name="robot_description"	command="$(find	xacro)/xacro.py ./wheel.xacro"/>
+                <rosparam file="./control.yaml" command="load"/>
                
-			Run	a	python	script	to	the	send	a	service	call	to	gazebo_ros	to	spawn	a	
-URDF	robot	
+		<!--	Run	a	python	script	to	the	send	a	service	call	to	gazebo_ros	to	spawn	a	
+URDF	robot	-->
 		<node	name="urdf_spawner" pkg="gazebo_ros"	type="spawn_model"	respawn="false"	
 output="screen"	args="-urdf	-model	robot1	-param robot_description"	/>
 
@@ -36,6 +36,6 @@ output="screen"	args="-urdf	-model	robot1	-param robot_description"	/>
 <node name="robot_states" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
 </node>
 
-		<node	name="urdf_spawner1" 	pkg="gazebo_ros"	type="spawn_model"	respawn="false"	
-output="screen"	args="-urdf	-model	robot2	-file $(find	urdf_tutorial)/ball.urdf"	/>
+<node name="urdf_spawner1" pkg="gazebo_ros"	type="spawn_model" respawn="false"	
+output="screen"	args="-urdf	-model	robot2	-file $(find urdf_tutorial)/ball.urdf"/>
 </launch>

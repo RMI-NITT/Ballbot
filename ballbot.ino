@@ -19,8 +19,35 @@ float Kpm1=7,kim1=0.5,kdm1=0;
 float Kpm2=8,kim2=0.1,kdm2=0;
 float Kpm3=4,kim3=0.1,kdm3=0;
 int reqpwm1,reqpwm2,reqpwm3,prevpwm1=0;
-float presentvel1=0,targetvel1,error1,sumerror1=0,preverror1=0,presentvel2=0,targetvel2,error2,sumerror2=0,preverror2=0,presentvel3=0,targetvel3,error3,sumerror3=0,preverror3=0;
-volatile long timer1=0,timeelapsed,timer2,timer3,timer4=0,timer5,timer6,timer7,timer8=0,timer9,timer10,timer11,timer12=0;
+float presentvel1=0,
+    targetvel1,
+    error1,
+    sumerror1=0,
+    preverror1=0,
+    presentvel2=0,
+    targetvel2,
+    error2,
+    sumerror2=0,
+    preverror2=0,
+    presentvel3=0,
+    targetvel3,
+    error3,
+    sumerror3=0,
+    preverror3=0;
+
+volatile long timer1=0,
+        timeelapsed,
+        timer2,
+        timer3,
+        timer4=0,
+        timer5,
+        timer6,
+        timer7,
+        timer8=0,
+        timer9,
+        timer10,
+        timer11,
+        timer12=0;
 
 void setup() {
   pinMode(ENCODER_A1, INPUT);
