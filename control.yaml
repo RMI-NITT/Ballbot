@@ -5,14 +5,18 @@ joint_state_controller:
 imu_joint1_controller:
   type: velocity_controllers/JointVelocityController
   joint: imu_joint1
-  pid: {p: 3.0, i: 1.0, d: 1.0}
+  
 
 imu_joint2_controller:
   type: velocity_controllers/JointVelocityController
   joint: imu_joint2
-  pid: {p: 5.0, i: 1.5, d: 1.25}
+  
 
 imu_joint3_controller:
   type: velocity_controllers/JointVelocityController
   joint: imu_joint3
-  pid: {p: 1.2, i: 0.4, d: 0}
+
+gazebo_ros_control/pid_gains:
+  imu_joint1: {p: 7, i: 0.5, d: 0.0}
+  imu_joint2: {p: 8, i: 0.1, d: 0.0}
+  imu_joint3: {p: 4, i: 0.1, d: 0.0}

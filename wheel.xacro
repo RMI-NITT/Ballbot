@@ -25,8 +25,8 @@
 <gazebo>
 <gravity> 1 </gravity>
 <dampingFactor>10</dampingFactor>
-<mu1>1000</mu1>
-<mu2>1000</mu2>
+<mu1>0.6</mu1>
+<mu2>0.6</mu2>
 </gazebo>
 
       </link>
@@ -52,8 +52,8 @@
 <gazebo>
 <gravity> 1 </gravity>
 <dampingFactor>10</dampingFactor>
-<mu1>1000</mu1>
-<mu2>1000</mu2>
+<mu1>0.6</mu1>
+<mu2>0.6</mu2>
 </gazebo>
 
       </link>
@@ -88,8 +88,8 @@
 <gazebo>
 <gravity> 1 </gravity>
 <dampingFactor>10</dampingFactor>
-<mu1>1000</mu1>
-<mu2>1000</mu2>
+<mu1>0.6</mu1>
+<mu2>0.6</mu2>
 </gazebo>
 
       </link>
@@ -125,8 +125,8 @@
 <gazebo>
 <gravity> 1 </gravity>
 <dampingFactor>10</dampingFactor>
-<mu1>1000</mu1>
-<mu2>1000</mu2>
+<mu1>0.6</mu1>
+<mu2>0.6</mu2>
 </gazebo>
 
       </link>
@@ -162,8 +162,8 @@
 <gazebo>
 <gravity> 1 </gravity>
 <dampingFactor>10</dampingFactor>
-<mu1>1000</mu1>
-<mu2>1000</mu2>
+<mu1>0.6</mu1>
+<mu2>0.6</mu2>
 </gazebo>
 
       </link>
@@ -198,8 +198,8 @@
 <gazebo>
 <gravity> 1 </gravity>
 <dampingFactor>10</dampingFactor>
-<mu1>1000</mu1>
-<mu2>1000</mu2>
+<mu1>0.6</mu1>
+<mu2>0.6</mu2>
 </gazebo>
 
       </link>
@@ -235,8 +235,8 @@
 <gazebo>
 <gravity> 1 </gravity>
 <dampingFactor>10</dampingFactor>
-<mu1>1000</mu1>
-<mu2>1000</mu2>
+<mu1>0.6</mu1>
+<mu2>0.6</mu2>
 </gazebo>
 
       </link>
@@ -272,8 +272,8 @@
 <gazebo>
 <gravity> 1 </gravity>
 <dampingFactor>10</dampingFactor>
-<mu1>1000</mu1>
-<mu2>1000</mu2>
+<mu1>0.6</mu1>
+<mu2>0.6</mu2>
 </gazebo>
 
       </link>
@@ -309,8 +309,8 @@
 <gazebo>
 <gravity> 1 </gravity>
 <dampingFactor>10</dampingFactor>
-<mu1>1000</mu1>
-<mu2>1000</mu2>
+<mu1>0.6</mu1>
+<mu2>0.6</mu2>
 </gazebo>
 
       </link>
@@ -346,8 +346,8 @@
 <gazebo>
 <gravity> 1 </gravity>
 <dampingFactor>10</dampingFactor>
-<mu1>1000</mu1>
-<mu2>1000</mu2>
+<mu1>0.6</mu1>
+<mu2>0.6</mu2>
 </gazebo>
 
       </link>
@@ -382,8 +382,8 @@
 <gazebo>
 <gravity> 1 </gravity>
 <dampingFactor>10</dampingFactor>
-<mu1>1000</mu1>
-<mu2>1000</mu2>
+<mu1>0.6</mu1>
+<mu2>0.6</mu2>
 </gazebo>
 
       </link>
@@ -431,8 +431,8 @@
 <inertia ixx="0.092" ixy ="0" ixz="0" iyy="0.092" iyz="0.0" izz="4.76"/>
 </inertial>
 <gazebo>
-<mu1>1000</mu1>
-<mu2>1000</mu2>
+<mu1>0.5</mu1>
+<mu2>0.5</mu2>
 </gazebo>
       </link>
 </xacro:macro>
@@ -491,10 +491,10 @@
 <transmission name="tran1">
   <type>transmission_interface/SimpleTransmission</type>
   <joint name="imu_joint1">
-      <hardwareInterface>VelocityJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
   </joint>
  <actuator name="motor1">
-     <hardwareInterface>VelocityJointInterface</hardwareInterface> 
+     <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface> 
      <mechanicalReduction>1</mechanicalReduction>
  </actuator>
 </transmission>
@@ -511,10 +511,10 @@
 <transmission name="tran2">
   <type>transmission_interface/SimpleTransmission</type>
   <joint name="imu_joint2">
-      <hardwareInterface>VelocityJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
   </joint>
  <actuator name="motor2">
-     <hardwareInterface>VelocityJointInterface</hardwareInterface> 
+     <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface> 
      <mechanicalReduction>1</mechanicalReduction>
  </actuator>
 </transmission>
@@ -531,10 +531,10 @@
 <transmission name="tran3">
   <type>transmission_interface/SimpleTransmission</type>
   <joint name="imu_joint3">
-      <hardwareInterface>VelocityJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
   </joint>
  <actuator name="motor3">
-     <hardwareInterface>VelocityJointInterface</hardwareInterface> 
+     <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface> 
      <mechanicalReduction>1</mechanicalReduction>
  </actuator>
 </transmission>
